@@ -1,10 +1,4 @@
-#include "org_mule_api_jni_Bridge.h"
-#include "JniManager.h"
-#include <sys/socket.h>
-#include <sys/un.h>
-#include <unistd.h>
-#include <errno.h>
-#include <pthread.h>
+#include "Router.h"
 
 #define BUFFER_SIZE 4096
 #define SOCKET_NAME "/tmp/dotnetsocket"
@@ -13,6 +7,7 @@ using namespace std;
 
 static JniManager* jniManager;
 static jobject javaRouter;
+//static ThreadPool* threadPool;
 struct sockaddr_un remote;
 int serverSocket;
 pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
@@ -47,13 +42,15 @@ JNIEXPORT void JNICALL Java_org_mule_api_jni_Bridge_init
     jniManager->setRouter(obj);
     
     // Start server
+   
 }
 
 JNIEXPORT jobject JNICALL Java_org_mule_api_jni_Bridge_invokeNetMethod
 (JNIEnv *env, jobject obj, jobject request)
 {
-    pthread_mutex_lock(&lock);
+    //pthread_mutex_lock(&lock);
     string requestJSON = jniManager->toRequestJSON(request);
+    
     
     if ((serverSocket = socket(AF_UNIX, SOCK_STREAM, 0)) == -1) {
         jniManager->throwException("Cannot create socket.");
@@ -92,7 +89,7 @@ JNIEXPORT jobject JNICALL Java_org_mule_api_jni_Bridge_invokeNetMethod
     
     close(serverSocket);
     
-    pthread_mutex_unlock(&lock);
+    //pthread_mutex_unlock(&lock);
     return jniManager->toResponse(response);
 }
 

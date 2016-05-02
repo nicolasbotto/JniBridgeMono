@@ -489,6 +489,11 @@ jobject TypeConverter::toJavaObject(JNIEnv* env, const GenericValue<UTF8<> >& js
 {
     string className = jsonValue["Java_Type"].GetString();
     
+    if (className == "NULL")
+    {
+        return NULL;
+    }
+    
     if (className == "java.lang.Integer")
     {
         int value = jsonValue["Java_Value"].GetInt();
