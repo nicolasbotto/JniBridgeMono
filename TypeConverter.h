@@ -78,9 +78,9 @@ public:
         {
             int value = convertToC<int>(env, obj);
 
-            writer.String("Mono_Type");
+            writer.String("Jni_Type");
             writer.String("Int32");
-            writer.String("Mono_Value");
+            writer.String("Jni_Value");
             writer.Int(value);
         }
 
@@ -88,9 +88,9 @@ public:
         {
             string value = convertToC<string>(env, obj);
 
-            writer.String("Mono_Type");
+            writer.String("Jni_Type");
             writer.String("String");
-            writer.String("Mono_Value");
+            writer.String("Jni_Value");
             writer.String(value.c_str());
         }
 
@@ -98,27 +98,27 @@ public:
         {
             bool value = convertToC<bool>(env, obj);
 
-            writer.String("Mono_Type");
+            writer.String("Jni_Type");
             writer.String("Boolean");
-            writer.String("Mono_Value");
+            writer.String("Jni_Value");
             writer.Bool(value);
         }
 
         if (className == "java.lang.Character")
         {
             char value = convertToC<char>(env, obj);
-            writer.String("Mono_Type");
+            writer.String("Jni_Type");
             writer.String("Char");
-            writer.String("Mono_Value");
+            writer.String("Jni_Value");
             writer.Int(value);
         }
 
         if (className == "java.lang.Long")
         {
             long value = convertToC<long>(env, obj);
-            writer.String("Mono_Type");
+            writer.String("Jni_Type");
             writer.String("Int64");
-            writer.String("Mono_Value");
+            writer.String("Jni_Value");
             writer.Int64(value);
         }
 
@@ -126,9 +126,9 @@ public:
         {
             short value = convertToC<short>(env, obj);
 
-            writer.String("Mono_Type");
+            writer.String("Jni_Type");
             writer.String("Int16");
-            writer.String("Mono_Value");
+            writer.String("Jni_Value");
             writer.Int(value);
         }
 
@@ -136,35 +136,35 @@ public:
         {
             byte value = convertToC<byte>(env, obj);
 
-            writer.String("Mono_Type");
+            writer.String("Jni_Type");
             writer.String("Byte");
-            writer.String("Mono_Value");
+            writer.String("Jni_Value");
             writer.Uint(value);
         }
 
         if (className == "java.lang.Double" )
         {
             double value = convertToC<double>(env, obj);
-            writer.String("Mono_Type");
+            writer.String("Jni_Type");
             writer.String("Double");
-            writer.String("Mono_Value");
+            writer.String("Jni_Value");
             writer.Double(value);
         }
 
         if (className == "java.lang.Float" )
         {
             float value = convertToC<float>(env, obj);
-            writer.String("Mono_Type");
+            writer.String("Jni_Type");
             writer.String("Single");
-            writer.String("Mono_Value");
+            writer.String("Jni_Value");
             writer.Double(value);
         }
         
         if (className == "[I" )
         {
-            writer.String("Mono_Type");
+            writer.String("Jni_Type");
             writer.String("Int32[]");
-            writer.String("Mono_Value");
+            writer.String("Jni_Value");
             vector<int> value = convertToC< vector<int> >(env, obj);
             
             int vectorSize = value.size();
@@ -181,9 +181,9 @@ public:
         
         if (className == "[B" )
         {
-            writer.String("Mono_Type");
+            writer.String("Jni_Type");
             writer.String("Byte[]");
-            writer.String("Mono_Value");
+            writer.String("Jni_Value");
             vector<byte> value = convertToC< vector<byte> >(env, obj);
             
             int vectorSize = value.size();
@@ -200,9 +200,9 @@ public:
         
         if (className == "[C" )
         {
-            writer.String("Mono_Type");
+            writer.String("Jni_Type");
             writer.String("Char[]");
-            writer.String("Mono_Value");
+            writer.String("Jni_Value");
             vector<char> value = convertToC< vector<char> >(env, obj);
             
             int vectorSize = value.size();
@@ -219,9 +219,9 @@ public:
         
         if (className == "[D" )
         {
-            writer.String("Mono_Type");
+            writer.String("Jni_Type");
             writer.String("Double[]");
-            writer.String("Mono_Value");
+            writer.String("Jni_Value");
             vector<double> value = convertToC< vector<double> >(env, obj);
             
             int vectorSize = value.size();
@@ -238,9 +238,9 @@ public:
         
         if (className == "[Z" )
         {
-            writer.String("Mono_Type");
+            writer.String("Jni_Type");
             writer.String("Bool[]");
-            writer.String("Mono_Value");
+            writer.String("Jni_Value");
             vector<bool> value = convertToC< vector<bool> >(env, obj);
             
             int vectorSize = value.size();
@@ -257,9 +257,9 @@ public:
         
         if (className == "[S" )
         {
-            writer.String("Mono_Type");
+            writer.String("Jni_Type");
             writer.String("Short[]");
-            writer.String("Mono_Value");
+            writer.String("Jni_Value");
             vector<short> value = convertToC< vector<short> >(env, obj);
             
             int vectorSize = value.size();
@@ -276,9 +276,9 @@ public:
         
         if (className == "[J" )
         {
-            writer.String("Mono_Type");
+            writer.String("Jni_Type");
             writer.String("Long[]");
-            writer.String("Mono_Value");
+            writer.String("Jni_Value");
             vector<long> value = convertToC< vector<long> >(env, obj);
             
             int vectorSize = value.size();
@@ -295,9 +295,9 @@ public:
         
         if (className == "[F" )
         {
-            writer.String("Mono_Type");
+            writer.String("Jni_Type");
             writer.String("Float[]");
-            writer.String("Mono_Value");
+            writer.String("Jni_Value");
             vector<float> value = convertToC< vector<float> >(env, obj);
             
             int vectorSize = value.size();
@@ -314,9 +314,9 @@ public:
         
         if (className == "[Ljava.lang.String;" )
         {
-            writer.String("Mono_Type");
+            writer.String("Jni_Type");
             writer.String("String[]");
-            writer.String("Mono_Value");
+            writer.String("Jni_Value");
             vector<string> value = convertToC< vector<string> >(env, obj);
             
             int vectorSize = value.size();
@@ -354,9 +354,9 @@ public:
                 if (isMap)
                 {
                     writer.StartObject();
-                    writer.String("Mono_Type");
+                    writer.String("Jni_Type");
                     writer.String("Map");
-                    writer.String("Mono_Value");
+                    writer.String("Jni_Value");
                 }
 
                 toObjectJson(env, mapValue, writer);

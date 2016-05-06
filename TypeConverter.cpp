@@ -459,13 +459,13 @@ jobject TypeConverter::convertToJavaMap(JNIEnv* env, const GenericValue<UTF8<> >
 {
     jobject map = env->NewObject(hashMapClazz, mapCtor);
 
-    if(jsonValue.HasMember("Java_Type"))
+    if(jsonValue.HasMember("Jni_Type"))
     {
-        if (strcmp(jsonValue["Java_Type"].GetString(), "Map") == 0)
+        if (strcmp(jsonValue["Jni_Type"].GetString(), "Map") == 0)
         {
-            if(jsonValue.HasMember("Java_Value"))
+            if(jsonValue.HasMember("Jni_Value"))
             {
-                for (Value::ConstMemberIterator itr = jsonValue["Java_Value"].MemberBegin(); itr != jsonValue["Java_Value"].MemberEnd(); ++itr)
+                for (Value::ConstMemberIterator itr = jsonValue["Jni_Value"].MemberBegin(); itr != jsonValue["Jni_Value"].MemberEnd(); ++itr)
                 {
                     string keyName = string(itr->name.GetString());
                     const GenericValue<UTF8<> >& mapValue = itr->value;
@@ -487,7 +487,7 @@ jobject TypeConverter::convertToJavaMap(JNIEnv* env, const GenericValue<UTF8<> >
 
 jobject TypeConverter::toJavaObject(JNIEnv* env, const GenericValue<UTF8<> >& jsonValue)
 {
-    string className = jsonValue["Java_Type"].GetString();
+    string className = jsonValue["Jni_Type"].GetString();
     
     if (className == "NULL")
     {
@@ -496,61 +496,61 @@ jobject TypeConverter::toJavaObject(JNIEnv* env, const GenericValue<UTF8<> >& js
     
     if (className == "java.lang.Integer")
     {
-        int value = jsonValue["Java_Value"].GetInt();
+        int value = jsonValue["Jni_Value"].GetInt();
         return env->NewObject(intClazz, intCtor, value);
     }
 
     if (className == "java.lang.String")
     {
-        string value = jsonValue["Java_Value"].GetString();
+        string value = jsonValue["Jni_Value"].GetString();
         return env->NewStringUTF(value.c_str());
     }
 
     if (className == "java.lang.Boolean")
     {
-        bool value = jsonValue["Java_Value"].GetBool();
+        bool value = jsonValue["Jni_Value"].GetBool();
         return env->NewObject(booleanClazz, booleanCtor, value);
     }
 
     if (className == "java.lang.Character")
     {
-        char value = (char)jsonValue["Java_Value"].GetInt();
+        char value = (char)jsonValue["Jni_Value"].GetInt();
         return env->NewObject(characterClazz, charCtor, value);
     }
 
     if (className == "java.lang.Long")
     {
-        long value = jsonValue["Java_Value"].GetInt64();
+        long value = jsonValue["Jni_Value"].GetInt64();
         return env->NewObject(longClazz, longCtor, value);
     }
 
     if (className == "java.lang.Short")
     {
-        short value = (short)jsonValue["Java_Value"].GetInt();
+        short value = (short)jsonValue["Jni_Value"].GetInt();
         return env->NewObject(shortClazz, shortCtor, value);
     }
 
     if (className =="java.lang.Byte")
     {
-        byte value = (byte)jsonValue["Java_Value"].GetUint();
+        byte value = (byte)jsonValue["Jni_Value"].GetUint();
         return env->NewObject(byteClazz, byteCtor, value);
     }
 
     if (className == "java.lang.Double")
     {
-        double value = jsonValue["Java_Value"].GetDouble();
+        double value = jsonValue["Jni_Value"].GetDouble();
         return env->NewObject(doubleClazz, doubleCtor, value);
     }
 
     if (className == "java.lang.Float")
     {
-        float value = (float)jsonValue["Java_Value"].GetDouble();
+        float value = (float)jsonValue["Jni_Value"].GetDouble();
         return env->NewObject(floatClazz, floatCtor, value);
     }
     
     if (className == "[B")
     {
-        const Value& arr = jsonValue["Java_Value"];
+        const Value& arr = jsonValue["Jni_Value"];
 
         if(arr.IsArray())
         {
@@ -571,7 +571,7 @@ jobject TypeConverter::toJavaObject(JNIEnv* env, const GenericValue<UTF8<> >& js
     
     if (className == "[I")
     {
-        const Value& arr = jsonValue["Java_Value"];
+        const Value& arr = jsonValue["Jni_Value"];
 
         if(arr.IsArray())
         {
@@ -592,7 +592,7 @@ jobject TypeConverter::toJavaObject(JNIEnv* env, const GenericValue<UTF8<> >& js
     
     if (className == "[C")
     {
-        const Value& arr = jsonValue["Java_Value"];
+        const Value& arr = jsonValue["Jni_Value"];
 
         if(arr.IsArray())
         {
@@ -613,7 +613,7 @@ jobject TypeConverter::toJavaObject(JNIEnv* env, const GenericValue<UTF8<> >& js
     
     if (className == "[D")
     {
-        const Value& arr = jsonValue["Java_Value"];
+        const Value& arr = jsonValue["Jni_Value"];
 
         if(arr.IsArray())
         {
@@ -634,7 +634,7 @@ jobject TypeConverter::toJavaObject(JNIEnv* env, const GenericValue<UTF8<> >& js
 
     if (className == "[F")
     {
-        const Value& arr = jsonValue["Java_Value"];
+        const Value& arr = jsonValue["Jni_Value"];
 
         if(arr.IsArray())
         {
@@ -655,7 +655,7 @@ jobject TypeConverter::toJavaObject(JNIEnv* env, const GenericValue<UTF8<> >& js
     
     if (className == "[Z")
     {
-        const Value& arr = jsonValue["Java_Value"];
+        const Value& arr = jsonValue["Jni_Value"];
 
         if(arr.IsArray())
         {
@@ -676,7 +676,7 @@ jobject TypeConverter::toJavaObject(JNIEnv* env, const GenericValue<UTF8<> >& js
     
     if (className == "[J")
     {
-        const Value& arr = jsonValue["Java_Value"];
+        const Value& arr = jsonValue["Jni_Value"];
 
         if(arr.IsArray())
         {
@@ -697,7 +697,7 @@ jobject TypeConverter::toJavaObject(JNIEnv* env, const GenericValue<UTF8<> >& js
     
     if (className == "[S")
     {
-        const Value& arr = jsonValue["Java_Value"];
+        const Value& arr = jsonValue["Jni_Value"];
 
         if(arr.IsArray())
         {
@@ -718,7 +718,7 @@ jobject TypeConverter::toJavaObject(JNIEnv* env, const GenericValue<UTF8<> >& js
     
     if (className == "[Ljava.lang.String;")
     {
-        const Value& arr = jsonValue["Java_Value"];
+        const Value& arr = jsonValue["Jni_Value"];
 
         if(arr.IsArray())
         {

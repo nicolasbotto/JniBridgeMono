@@ -216,7 +216,7 @@ void JniManager::instrument(char* message, int id)
 
 jobject JniManager::toResponse(string result)
 {
-    rapidjson::Document d;
+    /*rapidjson::Document d;
     d.Parse<0>(result.c_str());
     
     if(d.HasParseError())
@@ -234,20 +234,26 @@ jobject JniManager::toResponse(string result)
     {
         throwException(d["exception"].GetString());
         return NULL;
-    }
+    }*/
+    
+    JNIEnv* env = getEnv();
+
+    assert(env);
 
     jobject response = env->NewObject(responseClazz, responseCtor);
     jobject jPayload = NULL;
 
-    if(d.HasMember("payload"))
-    {
-        jPayload = typeConverter->toJavaObject(env, d["payload"]);
-    }
+    //if(d.HasMember("payload"))
+    //{
+        jPayload = env->NewStringUTF(result.c_str());
+        //jPayload = typeConverter->toJavaObject(env, d["payload"]);
+    //}
     
     env->CallVoidMethod(response, setPayloadMethod, jPayload);
     env->DeleteLocalRef(jPayload);
     
     // set Mule Message properties
+    /*
     jobject jInvocationProperties = typeConverter->convertToJavaMap(env, d["invocationProperties"]);
     jobject jSessionProperties = typeConverter->convertToJavaMap(env, d["sessionProperties"]);
     jobject jOutboundProperties = typeConverter->convertToJavaMap(env, d["outboundProperties"]);
@@ -259,12 +265,18 @@ jobject JniManager::toResponse(string result)
     env->DeleteLocalRef(jInvocationProperties);
     env->DeleteLocalRef(jOutboundProperties);
     env->DeleteLocalRef(jSessionProperties);
-
+*/
     return response;
 }
 
 string JniManager::toRequestJSON(jobject obj)
 {
+    JNIEnv* env = getEnv();
+
+    assert(env);
+    string result = typeConverter->convertToC<string>(env, env->CallObjectMethod(obj, getAssemblyName, "()Ljava/lang/String;"));
+    return result;
+    /*
     StringBuffer sb;
     PrettyWriter<StringBuffer> writer(sb);
     
@@ -328,5 +340,5 @@ string JniManager::toRequestJSON(jobject obj)
     
     writer.EndObject();
 
-    return sb.GetString();
+    return sb.GetString();*/
 }
