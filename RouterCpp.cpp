@@ -33,13 +33,13 @@ JNIEXPORT void JNICALL JNI_OnUnload(JavaVM *vm, void *reserved)
     
     // stop server
     /* Close socket. */
-    close(serverSocket);
+   // close(serverSocket);
 }
 
 JNIEXPORT void JNICALL Java_org_mule_api_jni_Bridge_init
 (JNIEnv *env, jobject obj, jobject path)
 {
-    jniManager->setRouter(obj);
+//    jniManager->setRouter(obj);
     
     // Start server
    
@@ -50,7 +50,6 @@ JNIEXPORT jobject JNICALL Java_org_mule_api_jni_Bridge_invokeNetMethod
 {
     //pthread_mutex_lock(&lock);
     string requestJSON = jniManager->toRequestJSON(request);
-    
     
     if ((serverSocket = socket(AF_UNIX, SOCK_STREAM, 0)) == -1) {
         jniManager->throwException("Cannot create socket.");
